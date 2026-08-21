@@ -1,0 +1,38 @@
+{
+  "name": "luxive-agency-mgmt",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Luxive Agency Management - 代理店営業管理システム(フロントエンド単体モック)",
+  "scripts": {
+    "dev": "vite --port 5183 --strictPort",
+    "build": "tsc -b --noEmit && vite build",
+    "build:single": "tsc -b --noEmit && vite build --mode single",
+    "preview": "vite preview --port 4183 --strictPort",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc -b --noEmit",
+    "cf:dev": "wrangler dev",
+    "cf:deploy": "npm run build:single && wrangler deploy",
+    "cf:secret": "wrangler secret put GATE_PASSWORD",
+    "cf:verify": "bash scripts/gate-check.sh"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260821.1",
+    "@playwright/test": "^1.49.1",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vite-plugin-singlefile": "^2.1.0",
+    "vitest": "^2.1.8",
+    "wrangler": "^4.125.0"
+  }
+}

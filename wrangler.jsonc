@@ -1,0 +1,42 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+
+  // 社名は出さず、試作であることが分かる名前にする
+  // → https://sales-test.<アカウントのサブドメイン>.workers.dev
+  "name": "sales-test",
+  "main": "./worker/index.ts",
+  "compatibility_date": "2026-08-21",
+
+  // ダッシュボードで消しても、ここに書いていないと次のdeployで復活する。
+  // どちらの状態にしたいかを設定側で持たせる。
+  "workers_dev": true,
+
+  // <version>-<worker>.<subdomain>.workers.dev という到達URLを増やさない。
+  // ゲートが壊れた過去バージョンのURLが生き残るのを防ぐ。
+  "preview_urls": false,
+
+  "assets": {
+    // npm run build:single の出力先(1枚版HTML)
+    "directory": "./dist-single/",
+
+    // Workerから env.ASSETS.fetch() で取りに行くための名前
+    "binding": "ASSETS",
+
+    // ここがゲートの心臓部。
+    // 既定のfalseだと index.html が認証を通らずに直接配信される。
+    // 配列にすると非マッチのパスが素通りするので、必ずbooleanのtrueにする。
+    "run_worker_first": true,
+
+    // "/" で index.html を配信する(既定値だが意図として明示)
+    "html_handling": "auto-trailing-slash",
+
+    // このアプリはハッシュルーターなのでSPAフォールバックは不要。
+    // single-page-application にすると、サブパスへのリクエストにHTMLが返り
+    // nosniffで実行拒否されて白画面になる。
+    "not_found_handling": "none"
+  },
+
+  "observability": {
+    "enabled": true
+  }
+}

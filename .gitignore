@@ -1,0 +1,15 @@
+node_modules/
+dist/
+dist-single/
+test-results/
+playwright-report/
+tsconfig.tsbuildinfo
+
+# 単一ファイル書き出しの中間生成物
+artifact-preview.html
+public-artifact-preview.html
+.playwright-mcp/
+
+# Cloudflare Worker のローカル用シークレット
+.dev.vars
+.wrangler/
